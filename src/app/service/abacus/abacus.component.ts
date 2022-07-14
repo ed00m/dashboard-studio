@@ -6,9 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./abacus.component.css']
 })
 export class AbacusComponent implements OnInit {
+  title = 'Dashboard Abacus';
 
-  constructor() { 
-    console.log("abacus.component")
+
+  constructor(
+  ) { 
+    console.log("abacus.component");
   }
 
   ngOnInit(): void {
