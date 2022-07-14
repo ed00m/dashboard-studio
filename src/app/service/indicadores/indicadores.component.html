@@ -6,9 +6,10 @@
         <th scope="col">Indicador</th>
         <th scope="col">Nombre</th>
         <th scope="col">Unidad</th>
-        <th scope="col">timestamp</th>
+        <th scope="col">Fecha</th>
         <th scope="col">Valor</th>
         <th scope="col">AVG</th>
+        <th scope="col">Cantidad</th>
       </tr>
     </thead>
     <tbody>
@@ -16,9 +17,10 @@
         <th scope="row"># {{profile.key}}</th>
         <td>{{profile.name}}</td>
         <td>{{profile.unit}}</td>
-        <td>{{profile.date}}</td>
+        <td>{{profile.date * 1000 | date : "yyyy/MM/dd"}}</td>
         <td>{{profile.value}}</td>
         <td>{{profile.profile["avg_comp-ute"]}}</td>
+        <td>{{profile.profile["len"]}}</td>
       </tr>
     </tbody>
   </table>
