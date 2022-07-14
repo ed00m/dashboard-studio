@@ -9,18 +9,50 @@ import { ArrayType } from '@angular/compiler';
 })
 
 // Permite que componente raiz pueda ejecutar el servicio de indicadores
-@Injectable({
-  providedIn: "root"
-})
+// @Injectable({
+//   providedIn: "root"
+// })
 
 export class IndicadoresComponent implements OnInit {
   //
-  _url = "http://34.117.109.223"
+  _url = "http://34.117.109.223";
+  public indicadoresProfiles: Array<any> = []
+
   //
   constructor (
-    private http:HttpClient
+    private http:HttpClient,
+    
   ) { 
     console.log("indicadores.component")
+    this.getProfiles().subscribe((IndicadoresProfiles:Object) => {
+      // console.log(IndicadoresProfiles)
+
+      const indicadoresProfilesArray: any[] = [];
+
+      const IndicadoresProfilesMap: Map<string, Object> = new Map(Object.entries(IndicadoresProfiles));
+      // console.log(IndicadoresProfilesMap)
+      IndicadoresProfilesMap.forEach((value, key) => {
+        // cobre|dolar|euro|ipc|ivp|oro|plata|uf|utm|yen
+
+        if (key == "data") {
+          // console.log(value)
+          const ProfilesDataMap: Map<string, Object> = new Map(Object.entries(value));
+          ProfilesDataMap.forEach((profileData, key2) => {
+            // console.log(indicadoresProfilesArray.length)
+            // console.log(profileData)
+            if (key2 != null || key2 != "") {
+              indicadoresProfilesArray.push(profileData);
+            }
+          })
+          // console.log(indicadoresProfilesArray.length)
+        }
+      });
+      // console.log(indicadoresProfilesArray)
+      this.indicadoresProfiles = indicadoresProfilesArray
+      // 
+      // console.log(this.indicadoresProfiles)
+
+    })
   }
 
   ngOnInit(): void {
@@ -48,19 +80,5 @@ export class IndicadoresComponent implements OnInit {
       // .set('Host', 'www.bice.cl')
     return this.http.get(this._url + "/abacus/profiles", { headers: headers})
   }
-
-  // getAVGfromIndicador(lista:Array<String>, indicador:string) {
-  //   for (let i = 0; i < lista.length; i++) {
-  //     // console.log(all_values[i])
-  //     if (lista[i]["key"] == indicador) {
-  //       // console.log(indicador,lista)
-  //       // console.log(lista)
-
-  //       let suma = lista.reduce((a:number, b:number) => a + b, 0);
-  //       console.log(indicador, "suma: ", suma)
-  //       return suma / lista.length
-  //     }
-  //    }
-  // }
 
 }
