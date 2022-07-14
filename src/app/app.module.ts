@@ -8,6 +8,8 @@ import { IndicadoresComponent } from './service/indicadores/indicadores.componen
 import { AbacusComponent } from './service/abacus/abacus.component';
 import { DashboardComponent } from './service/dashboard/dashboard.component';
 
+import { NgChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,8 @@ import { DashboardComponent } from './service/dashboard/dashboard.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

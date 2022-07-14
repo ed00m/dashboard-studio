@@ -15,6 +15,7 @@ import { ArrayType } from '@angular/compiler';
 
 export class IndicadoresComponent implements OnInit {
   //
+  title = "Indicadores Economicos"
   _url = "http://34.117.109.223";
   public indicadoresProfiles: Array<any> = []
 

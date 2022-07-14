@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AbacusComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    console.log("abacus.component")
+  }
 
   ngOnInit(): void {
   }

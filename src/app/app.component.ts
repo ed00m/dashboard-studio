@@ -1,5 +1,7 @@
 import { Component, Type } from '@angular/core';
 import { IndicadoresComponent } from './service/indicadores/indicadores.component';
+import { AbacusComponent } from './service/abacus/abacus.component';
+import { DashboardComponent } from './service/dashboard/dashboard.component';
 
 
 @Component({
