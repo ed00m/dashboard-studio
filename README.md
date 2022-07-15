@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
 
+## Nodejs 14.x
+
+Installation Instructions: https://computingforgeeks.com/install-node-js-14-on-ubuntu-debian-linux/
+
+## NPM dependencies
+
+Run `npm install` for install Node Modules.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
