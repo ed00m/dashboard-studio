@@ -9,13 +9,15 @@ import { AbacusComponent } from './service/abacus/abacus.component';
 import { DashboardComponent } from './service/dashboard/dashboard.component';
 
 import { NgChartsModule } from 'ng2-charts';
+import { HttpqueryComponent } from './service/httpquery/httpquery.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndicadoresComponent,
     AbacusComponent,
-    DashboardComponent
+    DashboardComponent,
+    HttpqueryComponent
   ],
   imports: [
     BrowserModule,
