@@ -1,5 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { ChartData, ChartDataset, ChartOptions } from 'chart.js';
+import { environment } from 'src/environments/environment';
 import { HttpqueryComponent } from '../httpquery/httpquery.component';
 
 @Component({
@@ -11,7 +12,7 @@ import { HttpqueryComponent } from '../httpquery/httpquery.component';
 export class DashboardComponent implements OnInit {
   //
   title = 'Dashboard Main'
-  _url = "https://the-economist-r5f3mpgeka-tl.a.run.app";
+  private _url = environment.API_URL;
 
   public indicadoresArray: Array<any> = []
 

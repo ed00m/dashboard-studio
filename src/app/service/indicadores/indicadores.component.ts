@@ -1,6 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders } from '@angular/common/http';
 import { ArrayType } from '@angular/compiler';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-indicadores',
@@ -16,7 +17,7 @@ import { ArrayType } from '@angular/compiler';
 export class IndicadoresComponent implements OnInit {
   //
   title = "Indicadores Economicos"
-  _url = "https://the-economist-r5f3mpgeka-tl.a.run.app";
+  private _url = environment.API_URL;
   public indicadoresProfiles: Array<any> = []
 
   //

@@ -1,5 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-httpquery',
@@ -15,7 +16,7 @@ import {HttpClient, HttpHeaders } from '@angular/common/http';
 export class HttpqueryComponent implements OnInit {
   // TODO: Change from component to service
   
-  _url = "https://the-economist-r5f3mpgeka-tl.a.run.app";
+  private _url = environment.API_URL;
 
   //
   constructor (
