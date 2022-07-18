@@ -11,7 +11,7 @@ import { HttpqueryComponent } from '../httpquery/httpquery.component';
 export class DashboardComponent implements OnInit {
   //
   title = 'Dashboard Main'
-  _url = "http://34.117.109.223";
+  _url = "https://the-economist-r5f3mpgeka-tl.a.run.app";
 
   public indicadoresArray: Array<any> = []
 

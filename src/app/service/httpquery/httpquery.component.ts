@@ -15,7 +15,7 @@ import {HttpClient, HttpHeaders } from '@angular/common/http';
 export class HttpqueryComponent implements OnInit {
   // TODO: Change from component to service
   
-  _url = "http://34.117.109.223";
+  _url = "https://the-economist-r5f3mpgeka-tl.a.run.app";
 
   //
   constructor (
