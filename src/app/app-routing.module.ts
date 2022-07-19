@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'abacus', component: AbacusComponent },
   { path: 'indicadores', component: IndicadoresComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: '/indicadores', pathMatch: 'full' },
 
 ];
 

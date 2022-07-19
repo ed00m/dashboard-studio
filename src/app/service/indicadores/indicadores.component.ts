@@ -21,10 +21,9 @@ export class IndicadoresComponent implements OnInit {
   public indicadoresProfiles: Array<any> = []
 
   //
-  constructor (
-    private http:HttpClient,
-    
-  ) { 
+  constructor (private http:HttpClient) {}
+
+  ngOnInit(): void {
     console.log("indicadores.component")
     this.getProfiles().subscribe((IndicadoresProfiles:Object) => {
       // console.log(IndicadoresProfiles)
@@ -55,9 +54,6 @@ export class IndicadoresComponent implements OnInit {
       // console.log(this.indicadoresProfiles)
 
     })
-  }
-
-  ngOnInit(): void {
   }
 
   getIndicadores() {
