@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpqueryComponent } from './httpquery.component';
 
+
 describe('HttpqueryComponent', () => {
-  let component: HttpqueryComponent;
-  let fixture: ComponentFixture<HttpqueryComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ HttpqueryComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => TestBed.configureTestingModule({
+    imports: [HttpClientTestingModule], 
+    providers: [HttpqueryComponent]
+  }));
 
-    fixture = TestBed.createComponent(HttpqueryComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+   it('should be created', () => {
+    const service: HttpqueryComponent = TestBed.inject(HttpqueryComponent);
+    expect(service).toBeTruthy();
+   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+   it('should have getData function', () => {
+    const service: HttpqueryComponent = TestBed.inject(HttpqueryComponent);
+    expect(service.getIndicadores()).toBeTruthy();
+   });
+
 });

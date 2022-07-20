@@ -21,12 +21,19 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "esModuleInterop": true,
+    "paths": { "@environments/*": ["src/environments/*"] },
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "types": [
+    "jest"
+  ],
+  "allowSyntheticDefaultImports": true
 }

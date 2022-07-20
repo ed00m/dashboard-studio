@@ -1,6 +1,6 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { ChartData, ChartDataset, ChartOptions } from 'chart.js';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
 import { HttpqueryComponent } from '../httpquery/httpquery.component';
 
 @Component({
