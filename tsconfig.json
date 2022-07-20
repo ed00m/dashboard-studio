@@ -32,6 +32,8 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-
+  "types": [
+    "jest"
+  ],
   "allowSyntheticDefaultImports": true
 }
