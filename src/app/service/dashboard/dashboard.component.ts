@@ -1,7 +1,8 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { ChartData, ChartDataset, ChartOptions } from 'chart.js';
-import { environment } from 'src/environments/environment';
-import { HttpqueryComponent } from '../httpquery/httpquery.component';
+import { environment } from '@environments/environment';
+import { HttpqueryComponent, Indicadores, Profiles, Values } from '../httpquery/httpquery.component';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -9,15 +10,13 @@ import { HttpqueryComponent } from '../httpquery/httpquery.component';
   styleUrls: ['./dashboard.component.css']
 })
 
+
 export class DashboardComponent implements OnInit {
   //
   title = 'Dashboard Main'
   private _url = environment.API_URL;
 
   public indicadoresArray: Array<any> = []
-
-  // chartLabels: Array<any> = []
-  // chartDatasets: Array<any> = []
 
   //
   cardTitle = "Evolucion de indicadores economicos"
@@ -40,21 +39,10 @@ export class DashboardComponent implements OnInit {
   //
   constructor(
     private HttpqueryComponent: HttpqueryComponent
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     console.log("dashboard.component")
-
-    const [chartLabels, chartDatasets] = this.main()
-
-    this.chartLabels = chartLabels
-    this.chartDatasets = chartDatasets
-
-    console.log('inside chartLabels', this.chartLabels)
-    console.log('inside chartDatasets', this.chartDatasets)
-
-    this.salesData = {
-      labels: this.chartLabels,
-      datasets: this.chartDatasets,
-    };
 
     this.chartOptions = {
       responsive: true,
@@ -65,65 +53,52 @@ export class DashboardComponent implements OnInit {
         },
       },
     };
-    
+
+    this.vpload()
+
     console.log('chartOptions', this.chartOptions)
   }
 
-  ngOnInit(): void {
-  }
-
-  main(): Array<any> {
-    // TODO: keys from Object and Map/Reduce attributes
-    const indicadoresRespArray: any[] = [];
-    const chartLabelsTmp: any[] = [];
-    const chartDatasetsTmp: any[] = [];
-    const indicadoresValuesData: any[] = [];
+  vpload() {
     // Obtener Indicadores desde API
-    this.HttpqueryComponent.getIndicadores().subscribe((indicadoresResp: Object) => {
+
+    const indicadoresValuesPromises: Promise<Values>[] = []
+
+    this.HttpqueryComponent.getIndicadores().subscribe((indicadoresResp: Indicadores) => {
       //
       // console.log(indicadoresResp)
-      // --
-      const indicadoresRespMap: Map<string, Object> = new Map(Object.entries(indicadoresResp));
-      // console.log('indicadoresRespMap', indicadoresRespMap)
+      // console.log(indicadoresResp.data['cobre'])
+      const indicadores = Object.keys(indicadoresResp.data)
+        
+      this.chartLabels = indicadores
 
-      indicadoresRespMap.forEach((indicadoresRespMapvalue, indicadoresRespMapkey) => {
-        // OK | backend_time | cache | data | time
-        //
-        // console.log(indicadoresRespMapkey)
-        if (indicadoresRespMapkey == "data") {
-          const indicadoresRespdataMap: Map<string, Object> = new Map(Object.entries(indicadoresRespMapvalue));
-          // console.log('indicadoresRespdataMap', indicadoresRespdataMap)
-          indicadoresRespdataMap.forEach((indicadoresRespdataMapvalue, indicadoresRespdataMapkey) => {
-            // console.log(indicadoresRespdataMapkey)
-            this.HttpqueryComponent.getValues(indicadoresRespdataMapkey).subscribe((indicadoresValuesResp: Object) => {
-              const indicadoresValuesRespMap: Map<string, Object> = new Map(Object.entries(indicadoresValuesResp));
-              // console.log('indicadoresValuesRespMap', indicadoresValuesRespMap)
-              indicadoresValuesRespMap.forEach((indicadoresValuesRespMapvalue, indicadoresValuesRespMapkey) => {
-                // console.log(indicadoresValuesRespMapkey)
-                if (indicadoresValuesRespMapkey == "data") {
-                  // console.log(indicadoresValuesRespMapvalue)
-                  const indicadoresValuesRespValuesMap: Map<string, Object> = new Map(Object.entries(indicadoresValuesRespMapvalue));
-                  indicadoresValuesRespValuesMap.forEach((indicadoresValuesRespMapvalue, indicadoresValuesRespMapkey) => {
-                    // console.log(indicadoresValuesRespMapkey)
-                    if (indicadoresValuesRespMapkey == "values") {
-                      // console.log(indicadoresValuesRespMapvalue)
-                      let IndicadorDataSet: Object = {
-                        label: indicadoresRespdataMapkey,
-                        data: indicadoresValuesRespMapvalue,
-                        tension: 0.5
-                      }
-                      // console.log(IndicadorDataSet)
-                      chartLabelsTmp.push(indicadoresRespdataMapkey);
-                      chartDatasetsTmp.push(IndicadorDataSet);
-                    }
-                  })
-                }
-              })
-            })
+      indicadores.forEach((indicador:string) => {
+        // console.log(key)
+        indicadoresValuesPromises.push(new Promise((resolve) => {
+          this.HttpqueryComponent.getValues(indicador).subscribe((indicadorValuesResp: Values) => {
+            resolve(indicadorValuesResp)
           })
-        }
+        }))
+      })
+
+      Promise.all(indicadoresValuesPromises).then((indicadoresValuesResponses: Values[]) => {
+      
+        indicadoresValuesResponses.forEach((values: Values) => {
+          this.chartDatasets.push({
+            label: values.data.key,
+            data: values.data.values,
+            tension: 0.5
+          })
+        })
+
+        this.salesData = {
+          labels: this.chartLabels,
+          datasets: this.chartDatasets,
+        };
+
+        console.log('inside chartLabels', this.chartLabels)
+        console.log('inside chartDatasets', this.chartDatasets)
       })
     })
-    return [chartLabelsTmp, chartDatasetsTmp];
   }
 }

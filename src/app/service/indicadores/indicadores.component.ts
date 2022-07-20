@@ -1,7 +1,7 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders } from '@angular/common/http';
 import { ArrayType } from '@angular/compiler';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-indicadores',
