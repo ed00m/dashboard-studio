@@ -1,3 +1,13 @@
+### STAGE 1: Build ###
+FROM node:14-alpine AS build
+WORKDIR /usr/src/app/dashboard-studio/
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN ls -l /usr/src/app
+RUN npm run build --configuration=production
+RUN ls -l /usr/src/app/dashboard-studio
+
 # The standard nginx container just runs nginx. The configuration file added
 # below will be used by nginx.
 FROM nginx
@@ -5,7 +15,7 @@ FROM nginx
 # Copy the nginx configuration file. This sets up the behavior of nginx. Most
 # important, it ensures that nginx listens on port 8080. Google App Engine expects
 # the runtime to respond to HTTP requests at port 8080.
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY deploy/nginx.conf /etc/nginx/nginx.conf
 
 # create log dir configured in nginx.conf
 RUN mkdir -p /var/log/app_engine
@@ -21,7 +31,7 @@ RUN mkdir -p /usr/share/nginx/www/_ah && \
 
 # Finally, all static assets.
 # RUN mkdir -p /usr/share/nginx/www/
-COPY dist/ /usr/share/nginx/www/dashboard-studio
+COPY --from=build /usr/src/app/dashboard-studio/dist/ /usr/share/nginx/www/
 RUN ls -l /usr/share/nginx/www/
-RUN ls -l /usr/share/nginx/www/dashboard-studio/assets
+RUN ls -l /usr/share/nginx/www/dashboard-studio/
 CMD ["/bin/sh",  "-c",  "exec nginx -g 'daemon off;'"]
