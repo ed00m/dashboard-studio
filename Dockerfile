@@ -1,3 +1,5 @@
+ARG BUILD_CONFIG=development
+
 ### STAGE 1: Build ###
 FROM node:14-alpine AS build
 WORKDIR /usr/src/app/dashboard-studio/
@@ -5,7 +7,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
 RUN ls -l /usr/src/app
-RUN npm run build --configuration=production
+RUN npm run build --configuration=$BUILD_CONFIG
 RUN ls -l /usr/src/app/dashboard-studio
 
 # The standard nginx container just runs nginx. The configuration file added
