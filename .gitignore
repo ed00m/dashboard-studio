@@ -43,3 +43,4 @@ Thumbs.db
 
 nginx-hosting/dist/
 deploy/dist/
+deploy.sh
