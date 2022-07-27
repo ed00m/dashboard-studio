@@ -1,0 +1,32 @@
+# runtime: custom
+# env: flex
+# service: default
+# threadsafe: true
+
+# env_variables:
+#   API_URL: "https://webapi-dev.appname.com"
+
+runtime: custom
+api_version: '1.0'
+env: flexible
+threadsafe: true
+env_variables:
+  API_URL: 'http://localhost:3000'
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 1
+  cpu_utilization:
+    target_utilization: 0.5
+liveness_check:
+  initial_delay_sec: '300'
+  check_interval_sec: '30'
+  timeout_sec: '4'
+  failure_threshold: 4
+  success_threshold: 2
+readiness_check:
+  check_interval_sec: '5'
+  timeout_sec: '4'
+  failure_threshold: 2
+  success_threshold: 2
+  app_start_timeout_sec: '300'
+service_account: service_account@appspot.gserviceaccount.com
