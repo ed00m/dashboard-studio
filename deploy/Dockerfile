@@ -24,4 +24,4 @@ RUN mkdir -p /usr/share/nginx/www/_ah && \
 COPY dist/ /usr/share/nginx/www/dashboard-studio
 RUN ls -l /usr/share/nginx/www/
 RUN ls -l /usr/share/nginx/www/dashboard-studio/assets
-CMD ["/bin/sh",  "-c",  "envsubst < /usr/share/nginx/www/dashboard-studio/assets/envconfig.template.js > /usr/share/nginx/www/dashboard-studio/assets/envconfig.js && exec nginx -g 'daemon off;'"]
+CMD ["/bin/sh",  "-c",  "exec nginx -g 'daemon off;'"]
