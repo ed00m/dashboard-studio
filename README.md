@@ -1,12 +1,14 @@
 # DashboardStudio
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
+This project was generated with [Angular CLI](https://angular.io/guide/setup-local) version 14.0.5. 
 
 ## Nodejs 14.x
 
-Installation Instructions: https://computingforgeeks.com/install-node-js-14-on-ubuntu-debian-linux/
+Installation Instructions: [Ubuntu](https://computingforgeeks.com/install-node-js-14-on-ubuntu-debian-linux/) or [macOS](https://nodejs.org/download/release/v14.20.0/node-v14.20.0.pkg)
 
 ## NPM dependencies
+
+Review [Angular CLI](https://angular.io/guide/setup-local) and setup local.
 
 Run `npm install` for install Node Modules.
 
