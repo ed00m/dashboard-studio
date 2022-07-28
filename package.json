@@ -51,6 +51,9 @@
     },
     "moduleNameMapper": {
       "^@environments/(.*)": "<rootDir>/src/environments/$1"
-    }
+    },
+    "modulePaths": [
+      "<rootDir>"
+    ]
   }
 }

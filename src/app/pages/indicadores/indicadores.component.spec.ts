@@ -1,23 +1,23 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IndicadoresComponent } from './indicadores.component';
 
 describe('IndicadoresComponent', () => {
-  let component: IndicadoresComponent;
-  let fixture: ComponentFixture<IndicadoresComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ IndicadoresComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => TestBed.configureTestingModule({
+    imports: [HttpClientTestingModule], 
+    providers: [IndicadoresComponent]
+  }));
 
-    fixture = TestBed.createComponent(IndicadoresComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+   it('should be created', () => {
+    const service: IndicadoresComponent = TestBed.inject(IndicadoresComponent);
+    expect(service).toBeTruthy();
+   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  //  it('should have getData function', () => {
+  //   const service: IndicadoresComponent = TestBed.inject(IndicadoresComponent);
+  //   expect(service.vpload()).toBeTruthy();
+  //  });
+
 });
