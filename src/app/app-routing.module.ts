@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IndicadoresComponent } from './service/indicadores/indicadores.component';
-import { AbacusComponent } from './service/abacus/abacus.component';
-import { DashboardComponent } from './service/dashboard/dashboard.component';
-
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { IndicadoresComponent } from './pages/indicadores/indicadores.component';
 
 const routes: Routes = [
-  { path: 'abacus', component: AbacusComponent },
-  { path: 'indicadores', component: IndicadoresComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'indicadores', component: IndicadoresComponent },
   { path: '**', redirectTo: '/indicadores', pathMatch: 'full' },
-
 ];
 
 @NgModule({

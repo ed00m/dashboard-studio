@@ -1,8 +1,4 @@
-import { Component, Type } from '@angular/core';
-import { IndicadoresComponent } from './service/indicadores/indicadores.component';
-import { AbacusComponent } from './service/abacus/abacus.component';
-import { DashboardComponent } from './service/dashboard/dashboard.component';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +7,4 @@ import { DashboardComponent } from './service/dashboard/dashboard.component';
 })
 export class AppComponent {
   title = 'dashboard-studio';
-  //public indicadoresProfiles: Array<any> = [];
-  // private indicadorValues = {};
-  // public valuesObject:Object = {};
-
-  constructor() {}
 }
-

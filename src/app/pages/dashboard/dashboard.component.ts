@@ -1,7 +1,6 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartData, ChartDataset, ChartOptions } from 'chart.js';
-import { environment } from '@environments/environment';
-import { HttpqueryComponent, Indicadores, Profiles, Values } from '../httpquery/httpquery.component';
+import { AbacusService, IndicadorValues, Indicadores, Profiles } from 'src/app/abacus.service';
 
 
 @Component({
@@ -9,40 +8,29 @@ import { HttpqueryComponent, Indicadores, Profiles, Values } from '../httpquery/
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-
-
 export class DashboardComponent implements OnInit {
-  //
-  title = 'Dashboard Main'
-  private _url = environment.API_URL;
 
-  public indicadoresArray: Array<any> = []
-
+  title = 'Dashboard Charts'
   //
   cardTitle = "Evolucion de indicadores economicos"
-  //
   chartTitle = "Datos Anuales"
-
   //
   public chartLabels: Array<any> = []
-  //
   public chartDatasets: Array<any> = []
-
   public salesData: ChartData<'line'> = {
     labels: this.chartLabels,
     datasets: this.chartDatasets,
   }
-
   public chartOptions: ChartOptions = {}
-
-  //
+  
   //
   constructor(
-    private HttpqueryComponent: HttpqueryComponent
-  ) {}
+    private abacus:AbacusService
+  ) { }
 
   ngOnInit(): void {
-    console.log("dashboard.component")
+
+    console.log("Dashboard.component")
 
     this.chartOptions = {
       responsive: true,
@@ -56,15 +44,16 @@ export class DashboardComponent implements OnInit {
 
     this.vpload()
 
-    console.log('chartOptions', this.chartOptions)
+    // console.log('chartOptions', this.chartOptions)
   }
 
   vpload() {
+    
     // Obtener Indicadores desde API
 
-    const indicadoresValuesPromises: Promise<Values>[] = []
+    const indicadoresValuesPromises: Promise<IndicadorValues>[] = []
 
-    this.HttpqueryComponent.getIndicadores().subscribe((indicadoresResp: Indicadores) => {
+    this.abacus.getIndicadores().subscribe((indicadoresResp: Indicadores) => {
       //
       // console.log(indicadoresResp)
       // console.log(indicadoresResp.data['cobre'])
@@ -75,15 +64,15 @@ export class DashboardComponent implements OnInit {
       indicadores.forEach((indicador:string) => {
         // console.log(key)
         indicadoresValuesPromises.push(new Promise((resolve) => {
-          this.HttpqueryComponent.getValues(indicador).subscribe((indicadorValuesResp: Values) => {
+          this.abacus.getIndicadorValues(indicador).subscribe((indicadorValuesResp: IndicadorValues) => {
             resolve(indicadorValuesResp)
           })
         }))
       })
 
-      Promise.all(indicadoresValuesPromises).then((indicadoresValuesResponses: Values[]) => {
+      Promise.all(indicadoresValuesPromises).then((indicadoresValuesResponses: IndicadorValues[]) => {
       
-        indicadoresValuesResponses.forEach((values: Values) => {
+        indicadoresValuesResponses.forEach((values: IndicadorValues) => {
           this.chartDatasets.push({
             label: values.data.key,
             data: values.data.values,
@@ -96,9 +85,10 @@ export class DashboardComponent implements OnInit {
           datasets: this.chartDatasets,
         };
 
-        console.log('inside chartLabels', this.chartLabels)
-        console.log('inside chartDatasets', this.chartDatasets)
+        // console.log('inside chartLabels', this.chartLabels)
+        // console.log('inside chartDatasets', this.chartDatasets)
       })
     })
   }
+
 }
