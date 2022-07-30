@@ -28,6 +28,10 @@ Run `ng serve --configuration=production` for a dev server with production backe
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+## Running Linter
+
+Run `npx eslint src` to execute the  [ESlint](https://typescript-eslint.io/docs/).
+
 ## Running unit tests
 
 Run `npx jest` to execute the unit tests via [Jest](https://jestjs.io/).
