@@ -50,17 +50,17 @@ export class AbacusService {
   }
 
   getIndicadores() {
-    let headers = new HttpHeaders()
+    const headers = new HttpHeaders()
     return this.httpClient.get<Indicadores>(this._url + "/abacus/last", { headers: headers})
   }
 
   getIndicadorValues(indicador:string) {
-    let headers = new HttpHeaders()
+    const headers = new HttpHeaders()
     return this.httpClient.get<IndicadorValues>(this._url + "/abacus/values/" + indicador, { headers: headers})
   }
 
   getProfiles() {
-    let headers = new HttpHeaders()
+    const headers = new HttpHeaders()
     return this.httpClient.get<Profiles>(this._url + "/abacus/profiles", { headers: headers})
   }
 }
