@@ -1,9 +1,9 @@
 .main_container {
     padding: 10px;
+    padding-top: 0px;
 }
 
-h1 {
-    padding-top: 10px;
-    padding-bottom: 10px;
+.main_container h1 {
+    padding-bottom: 25px;
     color: white;
 }
