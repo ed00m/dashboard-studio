@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartData, ChartDataset, ChartOptions } from 'chart.js';
-import { AbacusService, IndicadorValues, Indicadores, Profiles } from 'src/app/abacus.service';
+import { ChartData, ChartOptions } from 'chart.js';
+import { AbacusService, IndicadorValues, Indicadores } from 'src/app/abacus.service';
 
 
 @Component({
@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
       responsive: true,
       plugins: {
         title: {
-          display: true,
+          display: false,
           text: this.chartTitle,
         },
       },
@@ -53,26 +53,26 @@ export class DashboardComponent implements OnInit {
 
     const indicadoresValuesPromises: Promise<IndicadorValues>[] = []
 
-    this.abacus.getIndicadores().subscribe((indicadoresResp: Indicadores) => {
+    this.abacus.getIndicadores().subscribe((indicadoresResponse: Indicadores) => {
       //
-      // console.log(indicadoresResp)
-      // console.log(indicadoresResp.data['cobre'])
-      const indicadores = Object.keys(indicadoresResp.data)
+      // console.log(indicadoresResponse)
+      // console.log(indicadoresResponse.data['cobre'])
+      const indicadores = Object.keys(indicadoresResponse.data)
         
       this.chartLabels = indicadores
 
       indicadores.forEach((indicador:string) => {
         // console.log(key)
         indicadoresValuesPromises.push(new Promise((resolve) => {
-          this.abacus.getIndicadorValues(indicador).subscribe((indicadorValuesResp: IndicadorValues) => {
-            resolve(indicadorValuesResp)
+          this.abacus.getIndicadorValues(indicador).subscribe((indicadorValuesResponse: IndicadorValues) => {
+            resolve(indicadorValuesResponse)
           })
         }))
       })
 
-      Promise.all(indicadoresValuesPromises).then((indicadoresValuesResponses: IndicadorValues[]) => {
+      Promise.all(indicadoresValuesPromises).then((indicadoresValuesResponse: IndicadorValues[]) => {
       
-        indicadoresValuesResponses.forEach((values: IndicadorValues) => {
+        indicadoresValuesResponse.forEach((values: IndicadorValues) => {
           this.chartDatasets.push({
             label: values.data.key,
             data: values.data.values,
